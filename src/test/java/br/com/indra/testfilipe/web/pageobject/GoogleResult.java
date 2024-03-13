@@ -13,7 +13,7 @@ public class GoogleResult {
 	}
 	
 	public WebElement totalResults() throws Exception {
-		return seleniumUtil.findXPath("//div[@id='resultStats']","Quantidade de Resultados");
+		return seleniumUtil.findXPath("//div[@id='result-stats']","Quantidade de Resultados");
 	}
 	
 }

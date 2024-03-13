@@ -14,6 +14,7 @@ import br.com.indra.testfilipe.web.filme.Filme;
 import br.com.indra.testfilipe.web.pageobject.GoogleMain;
 import br.com.indra.testfilipe.web.pageobject.GoogleResult;
 import br.com.indra.testfilipe.web.selenium.SeleniumUtil;
+import io.github.bonigarcia.wdm.WebDriverManager;
 
 
 public class TestWeb {
@@ -22,9 +23,9 @@ public class TestWeb {
 	
 	@BeforeClass
 	public static void initiate() {
-		
+		WebDriverManager.chromedriver().setup();
 		//Se deseja headless, informar no segundo parametro o booleano
-		webDriver = SeleniumUtil.getWebDriver("http://www.google.com/", true);
+		webDriver = SeleniumUtil.getWebDriver("http://www.google.com/", false);
 		
 	}
 	

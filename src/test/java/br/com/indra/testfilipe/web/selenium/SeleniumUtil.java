@@ -29,18 +29,6 @@ public class SeleniumUtil {
 		this.driver = null;
 	}
 
-	private static Path getBinaryPath() {
-		
-		switch (OS) {
-			case "windows 10":
-				return Paths.get("src/test/resources/win_chromedriver.exe");
-			case "mac os x":
-				return Paths.get("src/test/resources/mac_chromedriver");	
-			default:
-				return Paths.get("src/test/resources/lin_chromedriver");
-		}
-		
-	}
 	
 	public static WebDriver getWebDriver(String uri,Boolean headless) {
 		
@@ -51,7 +39,6 @@ public class SeleniumUtil {
 			chromeOptions.addArguments("--headless"); 
 		}
 		
-		System.setProperty("webdriver.chrome.driver", getBinaryPath().toString());
 		tempDriver = new ChromeDriver(chromeOptions);
  
 		return tempDriver;
