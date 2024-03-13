@@ -1,4 +1,4 @@
-package br.com.indra.testfilipe.web.filme;
+package pocCICD.web.filme;
 
 public class Filme {
 	private String filmeNome = null;

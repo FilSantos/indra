@@ -1,4 +1,4 @@
-package br.com.indra.testfilipe.rest;
+package pocCICD.rest;
 
 import org.junit.Assert;
 import org.junit.FixMethodOrder;

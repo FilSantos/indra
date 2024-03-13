@@ -1,23 +1,26 @@
-package br.com.indra.testfilipe.web.selenium;
+package pocCICD.web.selenium;
 
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.net.URL;
 
 import org.junit.Assert;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Platform;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class SeleniumUtil {
 	
-	private static String OS = System.getProperty("os.name").toLowerCase();
 	private long TIME_OUT = 10;
 	private WebDriver driver;
 	private WebDriverWait driverWait;
+	
+	public static final String USERNAME = "filipesousasanto_od5Juq";
+	public static final String AUTOMATE_KEY = "ZUs2pVkuEEJ35VthYgSY";
+	public static final String URL = "https://" + USERNAME + ":" + AUTOMATE_KEY + "@hub.browserstack.com/wd/hub";
 	
 	public SeleniumUtil(WebDriver driver) {
 		this.driver = driver;
@@ -30,18 +33,22 @@ public class SeleniumUtil {
 	}
 
 	
-	public static WebDriver getWebDriver(String uri,Boolean headless) {
+	public static WebDriver getWebDriver(String uri,Boolean headless) throws Exception {		
+
+		DesiredCapabilities capability = new DesiredCapabilities();
+		capability.setPlatform(Platform.WINDOWS);
+		capability.setBrowserName("chrome");
+		capability.setVersion("122");
+		//capability.setCapability("build", "tst-01.0.0");
+		capability.setCapability("name", "Teste Google");
+		capability.setCapability("browserstack.debug", "false");
+		// Creatng URL object
 		
-		WebDriver tempDriver;
+		URL browserStackUrl = new URL(URL);
+		RemoteWebDriver temp = new RemoteWebDriver (browserStackUrl, capability);
+		temp.manage().window().maximize();
+		return temp;
 		
-		ChromeOptions chromeOptions = new ChromeOptions(); 
-		if (headless) {
-			chromeOptions.addArguments("--headless"); 
-		}
-		
-		tempDriver = new ChromeDriver(chromeOptions);
- 
-		return tempDriver;
 		
 	}
 	

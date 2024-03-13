@@ -1,9 +1,9 @@
-package br.com.indra.testfilipe.web.pageobject;
+package pocCICD.web.pageobject;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-import br.com.indra.testfilipe.web.selenium.SeleniumUtil;
+import pocCICD.web.selenium.SeleniumUtil;
 
 public class GoogleResult {
 	private SeleniumUtil seleniumUtil;
