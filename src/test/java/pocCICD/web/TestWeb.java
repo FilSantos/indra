@@ -38,7 +38,7 @@ public class TestWeb {
 	
 	@SuppressWarnings("deprecation")
 	@Test
-	public void pesquisaGoogle() {
+	public void pesquisaGoogleOK() {
 
 		List<Filme> listFilmes = new ArrayList<Filme>();	
 		
@@ -87,7 +87,58 @@ public class TestWeb {
 			}
 		}
 		
-		
+	}
+	
+	@SuppressWarnings("deprecation")
+	@Test
+	public void pesquisaGoogleNOK() {
 
+		List<Filme> listFilmes = new ArrayList<Filme>();	
+		
+		Filme filme;
+		
+		filme= new Filme("WiFi Ralph", "2019", "Rich Moore", "10/05/1963");
+		listFilmes.add(filme);
+		
+		GoogleMain googleMain = new GoogleMain(webDriver);
+		GoogleResult googleResult  = new GoogleResult(webDriver);
+		
+		for (Filme itemLista : listFilmes) {
+			
+			try {
+				String textoPesquisa = String.format("%s %s", itemLista.getDiretorNome(), itemLista.getfilmeNome());
+				
+				googleMain.abrePagina();
+				
+				WebElement textoParaPesquisa = googleMain.searchText();
+				textoParaPesquisa.sendKeys(textoPesquisa);
+				try {
+					WebElement btnPesquisar = googleMain.searchButton();
+					btnPesquisar.click();
+				} catch (Exception e) {
+					//Se houver erro quando localizar, forcar atraves do ENTER
+					textoParaPesquisa.sendKeys(Keys.ENTER);
+				}
+				String totalResultados = googleResult.totalResults().getText();
+				
+				System.out.println(String.format("%s - %s", textoPesquisa, totalResultados) );
+				
+				JavascriptExecutor jse = (JavascriptExecutor) webDriver;
+				// Setting the status of test as 'passed' or 'failed' based on the condition; if title of the web page matches 'BrowserStack - Google Search'
+			    if (totalResultados.contains("results")) {
+			      jse.executeScript("browserstack_executor: {\"action\": \"setSessionStatus\", \"arguments\": {\"status\": \"passed\", \"reason\": \"Tem resultados\"}}");
+			    }
+			    else {
+			      jse.executeScript("browserstack_executor: {\"action\": \"setSessionStatus\", \"arguments\": {\"status\":\"failed\", \"reason\": \"Nao tem resultados\"}}");
+			    }
+				
+				
+				Assert.assertTrue("Texto da pesquisa contem",totalResultados.contains("Joao"));
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
 	}
 }
