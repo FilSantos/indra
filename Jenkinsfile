@@ -8,12 +8,6 @@ pipeline {
     
     stages {
         
-        stage('Git checkout') {
-            steps {
-                git 'https://github.com/FilSantos/indra.git'
-            }
-        }
-        
         stage('Run Tests') {
             parallel {
                 stage('UI') {
