@@ -27,6 +27,13 @@ jobs:
         cache: maven
     - name: Testes API - Rest
       run: mvn test -Dtest="TestRest"
+    - name: Test Report
+      uses: dorny/test-reporter@v1
+      if: success() || failure()    # run this step even if previous step failed
+      with:
+        name: Tests Reports                    # Name of the check run which will be created
+        path: target/surefire-reports/*.xml    # Path to test results
+        reporter: jest-junit                   # Format of test results
 
   TestUI:
 
@@ -42,3 +49,10 @@ jobs:
         cache: maven
     - name: Testes UI
       run: mvn test -Dtest="TestWeb"
+    - name: Test Report
+      uses: dorny/test-reporter@v1
+      if: success() || failure()    # run this step even if previous step failed
+      with:
+        name: Tests Reports                    # Name of the check run which will be created
+        path: target/surefire-reports/*.xml    # Path to test results
+        reporter: jest-junit                   # Format of test results
