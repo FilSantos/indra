@@ -31,15 +31,5 @@ pipeline {
                     }
                 }
             }
-        }
-        post {
-                        always {
-                            junit "**/TEST-*.xml"
-                            cleanWs()
-                        }
-                    }
-    }
+        }    
 }
-
-
-
