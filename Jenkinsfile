@@ -27,12 +27,17 @@ pipeline {
                     post {
                         always {
                             junit "**/TEST-*.xml"
-                            cleanWs()
                         }
                     }
                 }
             }
         }
+        post {
+                        always {
+                            junit "**/TEST-*.xml"
+                            cleanWs()
+                        }
+                    }
     }
 }
 
