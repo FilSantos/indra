@@ -26,7 +26,8 @@ pipeline {
                     }
                     post {
                         always {
-                            junit "**/TEST-*.xml"
+                            junit healthScaleFactor: 0.5, testResults: '**/TEST-*.xml'
+                            cleanWs()
                         }
                     }
                 }
